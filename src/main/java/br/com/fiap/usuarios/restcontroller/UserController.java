@@ -25,7 +25,7 @@ public class UserController {
   private UserService service;
 
   @PostMapping( value="/create", consumes = "application/json")
-  public ResponseEntity<Long> crreateUser(@RequestBody UserVo userVo) {
+  public ResponseEntity<Long> createUser(@RequestBody UserVo userVo) {
     User user = service.createUser(userVo);
     return ResponseEntity.status(HttpStatus.CREATED).body(user.getId());
   }

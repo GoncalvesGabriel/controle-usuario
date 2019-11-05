@@ -11,10 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "USER_SYSTEM")
+@NoArgsConstructor
 public @Data
 class User {
 
@@ -41,4 +44,18 @@ class User {
   public void addAccount(Account account) {
     accounts.add(account);
   }
+
+  @Builder
+  private User(Long id,
+               String name,
+               String cpfCnpj,
+               String email,
+               Double balance) {
+    this.id = id;
+    this.name = name;
+    this.cpfCnpj = cpfCnpj;
+    this.email = email;
+    this.balance = balance;
+  }
+
 }

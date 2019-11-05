@@ -8,11 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table(name = "ACCOUNT")
+@NoArgsConstructor
 public @Data class Account {
 
   @Id
@@ -39,4 +42,22 @@ public @Data class Account {
   @ManyToOne
   @JoinColumn(name = "USER_ID")
   private User user;
+
+  @Builder
+  private Account(Long id,
+                  String number,
+                  String digit,
+                  String agencyNumber,
+                  String agencyDigit,
+                  Bank bank,
+                  User user) {
+    this.id = id;
+    this.number = number;
+    this.digit = digit;
+    this.agencyNumber = agencyNumber;
+    this.agencyDigit = agencyDigit;
+    this.bank = bank;
+    this.user = user;
+  }
+
 }
