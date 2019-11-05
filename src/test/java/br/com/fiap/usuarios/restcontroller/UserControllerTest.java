@@ -5,7 +5,9 @@ import static org.mockito.ArgumentMatchers.any;
 
 import br.com.fiap.usuarios.entity.Account;
 import br.com.fiap.usuarios.entity.User;
+import br.com.fiap.usuarios.entity.vo.UserVo;
 import br.com.fiap.usuarios.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -45,7 +47,7 @@ public class UserControllerTest {
                 + "  \"balance\": 5120093.02,\n"
                 + "  \"cpfCnpj\": \"12345678911\",\n"
                 + "  \"email\": \"gabriel.goncalves@silva.com.br\",\n"
-                + "  \"name\": \"Gabes\"\n"
+                + "  \"name\": \"Gabes custodiador\"\n"
                 + "}";
 
         RequestBuilder requestBuilder = MockMvcRequestBuilders
@@ -91,6 +93,27 @@ public class UserControllerTest {
     }
 
     @Test
-    public void findByCpfCnpj() {
+    public void findByCpfCnpj() throws Exception {
+        UserVo expected = UserVo.builder()
+            .cpfCnpj("12345678911")
+            .name("Gabes arduineiro")
+            .balance(9999999d)
+            .build();
+
+        Mockito.when(this.service.findUserbyCpfCnpj("12345678911")).thenReturn(expected);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
+            "/user/byCpfCnpj").accept(
+            MediaType.APPLICATION_JSON).param("cpfCnpj", "12345678911");
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+
+        UserVo actual = new ObjectMapper().readValue(result.getResponse().getContentAsString(),
+                                                     UserVo.class);
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+        assertEquals(expected.getCpfCnpj(), actual.getCpfCnpj());
+        assertEquals(expected.getName(), actual.getName());
+        assertEquals(expected.getBalance(), actual.getBalance());
     }
 }
