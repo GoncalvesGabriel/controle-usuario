@@ -40,7 +40,7 @@ public class UserServiceTest {
         UserVo expected = UserVo.builder()
             .name("Gabes")
             .cpfCnpj("33322211144")
-            .email("gabes.programante@guiabolso.com.br")
+            .email("gabes.programador@guiabolso.com.br")
             .build();
 
         when(repository.save(any())).thenAnswer((Answer<User>) invocation -> {

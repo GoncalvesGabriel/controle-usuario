@@ -29,7 +29,7 @@ public class UserValidatorTest {
         User entity = User.builder().cpfCnpj("12345678911").email("gabriel.gabes@custodia.com.br").build();
         when(userRepository.existWithCpfCnpjOrEmail(entity.getCpfCnpj(),
                                                     entity.getEmail())).thenReturn(true);
-        expectedException.expectMessage("Já existe outro usuário cadastrado com o mesmo cnpj ou email");
+        expectedException.expectMessage("Já existe outro usuário cadastrado com o mesmo cpf/cnpj ou email");
 
         this.validator.validateInsert(entity);
 

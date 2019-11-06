@@ -14,7 +14,7 @@ public class UserValidator implements Validator<User> {
   @Override
   public void validateInsert(User entity) {
     if (userRepository.existWithCpfCnpjOrEmail(entity.getCpfCnpj(), entity.getEmail())) {
-      throw new RuntimeException(String.format("Já existe outro usuário cadastrado com o mesmo cnpj ou email"));
+      throw new RuntimeException(String.format("Já existe outro usuário cadastrado com o mesmo cpf/cnpj ou email"));
     }
   }
 }
