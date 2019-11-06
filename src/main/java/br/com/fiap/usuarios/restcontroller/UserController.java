@@ -52,7 +52,7 @@ public class UserController {
     @GetMapping(value = "byCpfCnpj", produces = "application/json")
     public ResponseEntity<UserVo> findByCpfCnpj(
         @RequestParam
-        @ApiParam(name = "CPF ou CNPJ referência para a busca")
+        @ApiParam(value = "CPF ou CNPJ referência para a busca")
             String cpfCnpj) {
         UserVo userVo = service.findUserbyCpfCnpj(cpfCnpj);
         return ResponseEntity.status(HttpStatus.OK).body(userVo);
