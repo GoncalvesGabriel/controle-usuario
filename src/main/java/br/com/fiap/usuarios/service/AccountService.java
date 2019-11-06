@@ -14,10 +14,10 @@ public class AccountService {
   private AccountRepository repository;
 
   @Autowired
-  private BankService banskService;
+  private BankService bankService;
 
   public Account createAccount(AccountVo accountVo) {
-    Bank bank = banskService.findBankByNumber(accountVo.getNumberBank());
+    Bank bank = bankService.findBankByNumber(accountVo.getBankNumber());
     Account account = new Account();
     account.setNumber(accountVo.getNumber());
     account.setDigit(accountVo.getDigit());

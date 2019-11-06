@@ -7,10 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "BANK")
+@NoArgsConstructor
 public @Data class Bank {
 
   @Id
@@ -23,4 +26,14 @@ public @Data class Bank {
 
   @Column(name = "NUMBER")
   private String number;
+
+  @Builder
+  private Bank(Long id,
+               String name,
+               String number) {
+    this.id = id;
+    this.name = name;
+    this.number = number;
+  }
+
 }
